@@ -18,6 +18,8 @@ You can install `slurmr` from [GitHub](https://github.com/) with:
 devtools::install_github("Christopher-Peterson/slurmr")
 ```
 
-## Example
+## Example 1: creating a slurm file
+
+## Example 2: creating a launcher job list
 
 I’ll add these eventually

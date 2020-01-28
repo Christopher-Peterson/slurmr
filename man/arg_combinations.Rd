@@ -16,3 +16,14 @@ a tibble of all argument combinations
 Pass a formula or list of formulas to delay evaluation until after
 after combinations have been made.
 }
+\examples{
+# Use formulas to create a function of other combinations
+arg_combinations(
+  left = 1:3,
+  right = 1:3,
+  left_greater = ~ left > right)
+
+# Use lists...
+
+
+}

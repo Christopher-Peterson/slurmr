@@ -9,8 +9,17 @@
 #' @export
 #' @importFrom purrr pmap_dfr reduce2 modify_if cross pmap_dfr
 #' @importFrom dplyr bind_rows mutate n
+#' @examples
+#' # Use formulas to create a function of other combinations
+#' arg_combinations(
+#'   left = 1:3,
+#'   right = 1:3,
+#'   left_greater = ~ left > right)
+#'
+#' # Use lists...
+#'
+#'
 arg_combinations <- function(...) {
-  # browser()
   combo_list <- rlang::list2(...) %>%
     modify_if(rlang::is_list, encapsulate_elements) %>%
     modify_if(rlang::is_formula, ~ list(list(.x)))
