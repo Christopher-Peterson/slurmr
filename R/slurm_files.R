@@ -10,6 +10,7 @@
 #' @param ... unused
 #' @return the config header of a slurm job
 #' @export
+#' @importFrom glue glue glue_collapse
 make_slurm_config = function(job_name, nodes, wayness,
                              time, queue, account, log_dir,
                              email = "", ...) {
@@ -99,5 +100,5 @@ sbatch = function(slurm_file, dep=NA, dep_type = c("ok","notok","any",""),
 #' @importFrom purrr accumulate
 #' @rdname sbatch
 sbatch_seq = function(slurm_files, ...) {
-  accumulate(slurm_files, ~sbatch(.y, dep = .x, ...), ..., .init = NA)
+  purrr::accumulate(slurm_files, ~sbatch(.y, dep = .x, ...), ..., .init = NA)
 }
