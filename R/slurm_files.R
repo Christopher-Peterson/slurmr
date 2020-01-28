@@ -28,8 +28,7 @@ make_slurm_config <- function(job_name, nodes, wayness,
     #SBATCH --mail-type=fail
     #------------------------------------------------------
     module load intel
-    module load Rstats
-    ")
+    module load Rstats")
 }
 
 #' Creates a SLURM file
