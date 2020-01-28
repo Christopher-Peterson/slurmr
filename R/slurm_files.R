@@ -16,19 +16,19 @@ make_slurm_config <- function(job_name, nodes, wayness,
                               email = "", ...) {
   # browser()
   glue("#!/bin/bash
-    #SBATCH -J {job_name}
-    #SBATCH -N {nodes}
-    #SBATCH -n {wayness * nodes}
-    #SBATCH -p {queue}
-    #SBATCH -o {log_dir}/{job_name}.o
-    #SBATCH -e {log_dir}/{job_name}.e
-    #SBATCH -t {time}
-    #SBATCH -A {account}
-    #SBATCH --mail-user={email}
-    #SBATCH --mail-type=fail
-    #------------------------------------------------------
-    module load intel
-    module load Rstats")
+        #SBATCH -J {job_name}
+        #SBATCH -N {nodes}
+        #SBATCH -n {wayness * nodes}
+        #SBATCH -p {queue}
+        #SBATCH -o {log_dir}/{job_name}.o
+        #SBATCH -e {log_dir}/{job_name}.e
+        #SBATCH -t {time}
+        #SBATCH -A {account}
+        #SBATCH --mail-user={email}
+        #SBATCH --mail-type=fail
+        #------------------------------------------------------
+        module load intel
+        module load Rstats")
 }
 
 #' Creates a SLURM file
