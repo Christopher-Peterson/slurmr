@@ -17,7 +17,7 @@ sbatch_seq(slurm_files, ...)
 
 \item{slurm_files}{a vector of slurm files to be submitted in order}
 
-\item{...}{arguments for `sbatch`}
+\item{...}{arguments for \code{sbatch}}
 
 \item{dependencies}{jobid of dependencies if any}
 

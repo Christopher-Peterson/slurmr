@@ -1,0 +1,19 @@
+---
+title: "Configuration Files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Configuration Files}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(slurmr)
+```

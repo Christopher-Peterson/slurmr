@@ -13,7 +13,14 @@ Imports:
     glue,
     purrr,
     dplyr,
-    rlang,
+    rlang (>= 0.1.2),
     tidyr (>= 1.0.0),
-    magrittr
+    magrittr,
+    tibble
 RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown,
+    roxygen2
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

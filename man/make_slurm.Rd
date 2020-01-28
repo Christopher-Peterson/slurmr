@@ -8,7 +8,7 @@ make_slurm(slurm_config, launcher_file = "", launcher_prefix = "",
   launcher_suffix = "", ...)
 }
 \arguments{
-\item{slurm_config}{the configuration header, from `make_slurm_config()`}
+\item{slurm_config}{the configuration header, from \code{make_slurm_config()}}
 
 \item{launcher_file}{the job file for launcher scripts; if empty the
 launcher isn't used}
