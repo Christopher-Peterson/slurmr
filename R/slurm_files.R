@@ -11,12 +11,12 @@
 #' @return the config header of a slurm job
 #' @export
 #' @importFrom glue glue glue_collapse
-make_slurm_config = function(job_name, nodes, wayness,
-                             time, queue, account, log_dir,
-                             email = "", ...) {
+make_slurm_config <- function(job_name, nodes, wayness,
+                              time, queue, account, log_dir,
+                              email = "", ...) {
   # browser()
   glue(
-   "#!/bin/bash
+    "#!/bin/bash
     #SBATCH -J {job_name}
     #SBATCH -N {nodes}
     #SBATCH -n {wayness * nodes}
@@ -30,7 +30,8 @@ make_slurm_config = function(job_name, nodes, wayness,
     #------------------------------------------------------
     module load intel
     module load Rstats
-  ")
+  "
+  )
 }
 
 #' Creates a SLURM file
@@ -42,16 +43,17 @@ make_slurm_config = function(job_name, nodes, wayness,
 #' @param ... unused
 #' @return text of a slurm file
 #' @export
-make_slurm = function(slurm_config, launcher_file = "",
-                      launcher_prefix = "",
-                      launcher_suffix = "", ...) {
-  launcher =
+make_slurm <- function(slurm_config, launcher_file = "",
+                       launcher_prefix = "",
+                       launcher_suffix = "", ...) {
+  launcher <-
     ifelse(launcher_file == "", "", glue(
       "module load launcher
        export LAUNCHER_PLUGIN_DIR=$LAUNCHER_DIR/plugins
        export LAUNCHER_RMI=SLURM
        export LAUNCHER_JOB_FILE={launcher_file}
-       $LAUNCHER_DIR/paramrun"))
+       $LAUNCHER_DIR/paramrun"
+    ))
   glue("{slurm_config}
        {launcher_prefix}
        {launcher}
@@ -59,8 +61,8 @@ make_slurm = function(slurm_config, launcher_file = "",
 }
 
 # get the job ID from sbatch output
-get_jobID = function(sbatch_output) {
-  last_line = last(sbatch_output)
+get_jobID <- function(sbatch_output) {
+  last_line <- last(sbatch_output)
   last(unlist(strsplit(last_line, " ", fixed = TRUE))) # assumes the jobid is the last line
 }
 
@@ -72,21 +74,21 @@ get_jobID = function(sbatch_output) {
 #' @return the jobid of the submitted job
 #' @export
 #' @importFrom purrr map_chr
-sbatch = function(slurm_file, dep=NA, dep_type = c("ok","notok","any",""),
-                  .extra = "") {
-  dep_type = match.arg(dep_type) # correspond to after{dep_type}
+sbatch <- function(slurm_file, dep = NA, dep_type = c("ok", "notok", "any", ""),
+                   .extra = "") {
+  dep_type <- match.arg(dep_type) # correspond to after{dep_type}
   # dep is a jobid dependency; if NA, there's no dependency
-  extras = paste0(.extra, collapse = " ") # extra slurm arguments
-  if(any(is.na(dep))) {
-    arg = slurm_file
-    dep_str = ""
+  extras <- paste0(.extra, collapse = " ") # extra slurm arguments
+  if (any(is.na(dep))) {
+    arg <- slurm_file
+    dep_str <- ""
   } else {
-    dep = glue_collapse(glue("after{dep_type}:{dep}"), sep = ",")
-    dep_str = glue("--dependency={dep}")
+    dep <- glue_collapse(glue("after{dep_type}:{dep}"), sep = ",")
+    dep_str <- glue("--dependency={dep}")
   }
-  arg = paste(dep_str, extras, slurm_file)
+  arg <- paste(dep_str, extras, slurm_file)
   map_chr(arg, function(.arg) {
-    out = system2("sbatch", .arg, stdout = TRUE)
+    out <- system2("sbatch", .arg, stdout = TRUE)
     cat(out, sep = "\n")
     get_jobID(out)
   })
@@ -99,6 +101,6 @@ sbatch = function(slurm_file, dep=NA, dep_type = c("ok","notok","any",""),
 #' @export
 #' @importFrom purrr accumulate
 #' @rdname sbatch
-sbatch_seq = function(slurm_files, ...) {
-  purrr::accumulate(slurm_files, ~sbatch(.y, dep = .x, ...), ..., .init = NA)
+sbatch_seq <- function(slurm_files, ...) {
+  purrr::accumulate(slurm_files, ~ sbatch(.y, dep = .x, ...), ..., .init = NA)
 }

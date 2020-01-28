@@ -9,42 +9,48 @@
 #' @export
 #' @importFrom purrr pmap_dfr reduce2 modify_if cross pmap_dfr
 #' @importFrom dplyr bind_rows mutate n
-arg_combinations = function(...) {
+arg_combinations <- function(...) {
   # browser()
-  combo_list = rlang::list2(...) %>%
+  combo_list <- rlang::list2(...) %>%
     modify_if(rlang::is_list, encapsulate_elements) %>%
-    modify_if(rlang::is_formula, ~list(list(.x)))
-  combo_list %>% cross() %>%
+    modify_if(rlang::is_formula, ~ list(list(.x)))
+  combo_list %>%
+    cross() %>%
     bind_rows() %>%
     eval_formula_args()
 }
 # convert wrap each list element in its own list; this helps
 # with making list columns in tibbles
-encapsulate_elements = function(lst) {
+encapsulate_elements <- function(lst) {
   lapply(lst, list)
 }
 
 # Returns TRUE if it's a list of formulas
-is_formula_list = function(x) {
+is_formula_list <- function(x) {
   rlang::is_list(x) && rlang::is_formula(x[[1]])
 }
 
-eval_formula_args = function(combos) {
+eval_formula_args <- function(combos) {
   # Parse formula specifications in the arg combos
-  non_formulas = rlang::names2(combos)[
-    !vapply(combos, is_formula_list, TRUE)]
-  if(length(non_formulas) == ncol(combos)) return(combos)
+  non_formulas <- rlang::names2(combos)[
+    !vapply(combos, is_formula_list, TRUE)
+  ]
+  if (length(non_formulas) == ncol(combos)) {
+    return(combos)
+  }
   # Nest non-formulas so the formulae can be easily mapped over
-  combo_nested = tidyr::nest(combos, data = !!non_formulas)
+  combo_nested <- tidyr::nest(combos, data = !!non_formulas)
   pmap_dfr(combo_nested, function(..., data) {
-    formula_args = list(...)
+    formula_args <- list(...)
     # Evaluate formulae in order
     reduce2(formula_args, rlang::names2(formula_args),
-            function(.dat, .form, .name) {
-              expr = rlang::f_rhs(.form)
-              .dat %>% mutate(!!.name := !!expr)
-            }, .init = data)
-  } )
+      function(.dat, .form, .name) {
+        expr <- rlang::f_rhs(.form)
+        .dat %>% mutate(!!.name := !!expr)
+      },
+      .init = data
+    )
+  })
   # The return value should be a single data frame with the same
   # names as combos, but everything evaluated
 }
