@@ -2,6 +2,7 @@
 % Please edit documentation in R/utils-pipe.R
 \name{op-na-default}
 \alias{op-na-default}
+\alias{\%|\%}
 \title{Replace missing values}
 \usage{
 x \%|\% value_if_x_is_na

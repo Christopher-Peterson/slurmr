@@ -13,11 +13,9 @@ NULL
 #' Replace missing values
 #'
 #' See `rlang::[\%|\%][rlang::op-na-default]` for details.
-#'
 #' @name op-na-default
-#' @rdname op-na-default
 #' @keywords internal
+#' @rdname op-na-default
 #' @export
-#' @importFrom rlang %|%
 #' @usage x \%|\% value_if_x_is_na
-NULL
+`%|%` = rlang::`%|%`
