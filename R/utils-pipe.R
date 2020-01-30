@@ -14,7 +14,7 @@ NULL
 #'
 #' See `rlang::[\%|\%][rlang::op-na-default]` for details.
 #'
-#' @name %|%
+#' @name op-na-default
 #' @rdname op-na-default
 #' @keywords internal
 #' @export
