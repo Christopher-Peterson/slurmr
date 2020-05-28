@@ -4,8 +4,17 @@
 \alias{make_slurm_config}
 \title{Create a SLURM configuration header}
 \usage{
-make_slurm_config(job_name, nodes, wayness, time, queue, account, log_dir,
-  email = "", ...)
+make_slurm_config(
+  job_name,
+  nodes,
+  wayness,
+  time,
+  queue,
+  account,
+  log_dir,
+  email = "",
+  ...
+)
 }
 \arguments{
 \item{job_name}{the job's name}

@@ -5,8 +5,12 @@
 \alias{sbatch_seq}
 \title{submit a slurm file to the queue, with dependencies}
 \usage{
-sbatch(slurm_file, dep = NA, dep_type = c("ok", "notok", "any", ""),
-  .extra = "")
+sbatch(
+  slurm_file,
+  dep = NA,
+  dep_type = c("ok", "notok", "any", ""),
+  .extra = ""
+)
 
 sbatch_seq(slurm_files, ...)
 }

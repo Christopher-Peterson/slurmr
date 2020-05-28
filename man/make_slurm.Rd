@@ -4,8 +4,13 @@
 \alias{make_slurm}
 \title{Creates a SLURM file}
 \usage{
-make_slurm(slurm_config, launcher_file = "", launcher_prefix = "",
-  launcher_suffix = "", ...)
+make_slurm(
+  slurm_config,
+  launcher_file = "",
+  launcher_prefix = "",
+  launcher_suffix = "",
+  ...
+)
 }
 \arguments{
 \item{slurm_config}{the configuration header, from \code{make_slurm_config()}}

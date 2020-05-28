@@ -8,6 +8,6 @@
 x \%|\% value_if_x_is_na
 }
 \description{
-See \code{rlang::[\\\%|\\\%][rlang::op-na-default]} for details.
+See \verb{rlang::[\\\%|\\\%][rlang::op-na-default]} for details.
 }
 \keyword{internal}
